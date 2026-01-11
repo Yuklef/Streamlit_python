@@ -68,7 +68,10 @@ def main():
             st.write(f"Погода в {cities}: не аномальна")
         else:
             st.write(f"Погода в {cities}: аномальна")
+        data['timestamp'] = pd.to_datetime(data['timestamp'])
+        data = data.sort_values('timestamp').reset_index(drop=True)
         data_cities = data[data['city'] == cities]
+
         fig = go.Figure()
 
         fig.add_trace(go.Scatter(x=data_cities['timestamp'], y=data_cities['temperature'], mode='markers',
